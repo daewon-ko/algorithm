@@ -1,42 +1,52 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int s;
+    static int p;
+    static int answer;
+    static char [] dna;
+    static int a,c,g,t;
+    static int [] cnt = new int[20];
+
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(bufferedReader.readLine());
-        int M = Integer.parseInt(bufferedReader.readLine());
-
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
-        int [] A = new int [N];
+        s = Integer.parseInt(stringTokenizer.nextToken());
+        p = Integer.parseInt(stringTokenizer.nextToken());
 
-        for(int i =0; i<N; i++){
-            A[i] = Integer.parseInt(stringTokenizer.nextToken());
+        dna = bufferedReader.readLine().toCharArray();
+        stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+        a = Integer.parseInt(stringTokenizer.nextToken());
+        c = Integer.parseInt(stringTokenizer.nextToken());
+        g = Integer.parseInt(stringTokenizer.nextToken());
+        t = Integer.parseInt(stringTokenizer.nextToken());
+
+        slingWindows();
+        System.out.println(answer);
+
+    }
+    public static void slingWindows(){
+
+        for(int i = 0; i<p; i++){
+            cnt[dna[i]-'A']++;
         }
-        Arrays.sort(A);
-        int i = 0;
-        int j = N-1;
-        int count = 0;
-
-        while (i<j){
-            if(A[i]+A[j]<M){
-                i++;
-            }else if(A[i]+A[j]>M){
-                j--;
-            }else{
-                count++;
-                i++;
-                j--;
-            }
+        check();
+        for(int i=p; i<s; i++){
+            cnt[dna[i-p]-'A']--;
+            cnt[dna[i]-'A']++;
+            check();
         }
-        System.out.println(count);
-        bufferedReader.close();
 
+    }
 
-
+    //0 2 6 19
+    static void check(){
+        if(cnt[0]>=a && cnt[2]>=c && cnt[6]>=g && cnt[19]>=t){
+            answer++;
+        }
     }
 }
