@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 public class Q8 {
     public static void main(String[] args) throws IOException {
+
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(bufferedReader.readLine());
         StringTokenizer stringTokenizer = new StringTokenizer(bufferedReader.readLine());
@@ -15,9 +16,10 @@ public class Q8 {
         for (int i = 0; i < N; i++) {
             A[i] = Integer.parseInt(stringTokenizer.nextToken());
         }
-        Arrays.sort(A);
 
+        Arrays.sort(A);
         int count = 0;
+
         for (int k = 0; k < N; k++) {
             int i = 0;
             int j = N - 1;
